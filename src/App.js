@@ -2,7 +2,7 @@ import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import ListBooks from './components/ListBooks'
-import SearchBooks from  './components/SearchBooks'
+//import SearchBooks from  './components/SearchBooks'
 
 class BooksApp extends React.Component {
   state = {
@@ -26,8 +26,23 @@ componentDidMount(){
 
 }
 
-handleShelf = (event, book) => {
+handleShelf = (event,book) => {
+    const currentId = book.id
+    book.shelf = event.target.value
+    const currentState = this.state.books
 
+    const updatedState = this.state.books.filter((e)=>
+       e.id !== book.id
+    )
+
+    updatedState.push(book)
+    this.setState({ books: updatedState })
+
+    BooksAPI.update( currentId, event.target.value)
+            .then(bookData => {})
+            .catch(err => {
+            this.setState({ books: currentState });
+    });
 }
 
 
@@ -35,8 +50,7 @@ handleShelf = (event, book) => {
   render() {
     return (
       <div className="app">
-      
-        
+
           <div className="list-books">
             <div className="list-books-title">
               <h1>MyReads</h1>
@@ -44,7 +58,7 @@ handleShelf = (event, book) => {
             
               <ListBooks
                 books={ this.state.books }
-                shelf={ this.handleShelf } // currentlyReading, read, wantToRead, none
+                handleShelf={ this.handleShelf } // currentlyReading, read, wantToRead, none
               />
           
             <div className="open-search">
