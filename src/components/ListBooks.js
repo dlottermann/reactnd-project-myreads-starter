@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Books from './Books'
+import { Link } from 'react-router-dom'
 
 export default class ListBooks extends Component {
  
@@ -8,6 +9,10 @@ export default class ListBooks extends Component {
     const { handleShelf, books } = this.props;
     console.log(books)
     return (
+       <div className="list-books">
+            <div className="list-books-title">
+              <h1>MyReads</h1>
+            </div>
               <div className="list-books-content">
                 <Books
                   onHandleChange={handleShelf}
@@ -25,7 +30,13 @@ export default class ListBooks extends Component {
                   titleShelf="Read"
                 />
               </div>
-      
+              <div className="open-search">
+                    <Link to='/search'>
+                      <button>Add a book</button>
+                    </Link>
+               </div>
+              
+       </div>   
     )
   }
 }

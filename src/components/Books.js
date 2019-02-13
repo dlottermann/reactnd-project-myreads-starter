@@ -13,7 +13,7 @@ export default class Books extends Component {
                     { books.map((book) => { 
                       const coverPicture =  book.imageLinks
                                             ? book.imageLinks.smallThumbnail
-                                            : book.imageLinks.thumbnail
+                                            : 'http://via.placeholder.com/128x190'
 
                       return (
                               <li key={ book.id }>
