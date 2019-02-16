@@ -6,8 +6,7 @@ export default class ListBooks extends Component {
  
   render() {
     
-    const { handleShelf, books } = this.props;
-    console.log(books)
+    const { handleShelf, books } = this.props
     return (
        <div className="list-books">
             <div className="list-books-title">

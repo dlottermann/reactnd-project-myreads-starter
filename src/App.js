@@ -14,29 +14,37 @@ componentDidMount(){
     /*
         TODO: Set new state of books from API result      
     */
-  BooksAPI.getAll().then((books) => {
-      this.setState({books})
-  })
+  this.getBooks()
 
 }
 
+getBooks(){
+  BooksAPI.getAll().then((books) => {
+    this.setState({books})
+  })
+}
+
 handleShelf = (event,book) => {
-    const currentId = book.id
-    book.shelf = event.target.value
+    
+    // Get Current State to treat error 
     const currentState = this.state.books
 
-    const updatedState = this.state.books.filter((e)=>
+   //Create new array  without book 
+   const updatedState = this.state.books.filter((e)=>
        e.id !== book.id
     )
-
+    //update book shelf before
+    book.shelf = event.target.value
+    // push again the array and update state with news shelf of book
     updatedState.push(book)
     this.setState({ books: updatedState })
 
-    BooksAPI.update( currentId, event.target.value)
-            .then(bookData => {})
-            .catch(err => {
-            this.setState({ books: currentState });
-    });
+    BooksAPI.update( book, event.target.value)
+            .then(() => {
+              // Removed to performance of state
+              //this.getBooks()
+            })
+            .catch(err => { this.setState({ books: currentState }) })
 }
 
   render() {
