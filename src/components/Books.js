@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
-
+import { Spinner, Badge, Button } from 'reactstrap'
 export default class Books extends Component {
   
   render() {
-    const { onHandleChange, books, titleShelf } = this.props
+    const { onHandleChange, books, titleShelf, loader } = this.props
 
     return (
       <div className="bookshelf">
             <h2 className="bookshelf-title">{ titleShelf }</h2>
+            <Button color="primary" outline>
+            Total { titleShelf } <Badge color="secondary">{ books.length }</Badge>
+          </Button>
                   <div className="bookshelf-books">
-                    <ol className="books-grid">
+                    <ol className="books-grid">                   
                     { books.map((book) => { 
                       const coverPicture =  book.imageLinks
                                             ? book.imageLinks.smallThumbnail
@@ -17,13 +20,15 @@ export default class Books extends Component {
 
                       return (
                               <li key={ book.id }>
-                                <div className="book">
+                              { loader ? (<Spinner color="success"/>) : '' }
+                               <div className="book">                              
                                   <div className="book-top">
-                                    <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: `url(${coverPicture})` }}></div>
+                                   <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: `url(${coverPicture})` }}></div>
                                     <div className="book-shelf-changer">
                                       <select 
                                         value={book.shelf}
                                         onChange={ (event) => onHandleChange(event,book) }
+                                        defaultValue={ book.shelf }
                                       >
                                         <option value="move" disabled>Move to...</option>
                                         <option value="currentlyReading">Currently Reading</option>

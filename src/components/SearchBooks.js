@@ -61,7 +61,7 @@ export default class SearchBooks extends Component {
             ) : (
               <div>
                 <div className="no-results">
-                  {`No results to: ${query}`}
+                  {`No books to show `}
                 </div>
               </div> )}
             </div>
