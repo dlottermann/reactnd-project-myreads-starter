@@ -8,8 +8,8 @@ Of course, you are free to start this project from scratch if you wish! Just be 
 
 To get started developing right away:
 
-* install all project dependencies with `npm install`
-* start the development server with `npm start`
+* install all project dependencies with `yarn`
+* start the development server with `yarn start`
 
 ## What You're Getting
 ```bash
@@ -21,6 +21,10 @@ To get started developing right away:
 │   ├── favicon.ico # React Icon, You may change if you wish.
 │   └── index.html # DO NOT MODIFY
 └── src
+    ├── components # Isolated components 
+    │   ├── Books.js # Component to display books in lists an Search
+    │   ├── ListBooks.js # List of Boooks filtering
+    │   ├── SearchBooks.js # Component of Search of books
     ├── App.css # Styles for your app. Feel free to customize this as you desire.
     ├── App.js # This is the root of your app. Contains static HTML right now.
     ├── App.test.js # Used for testing. Provided with Create React App. Testing is encouraged, but not required.

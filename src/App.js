@@ -49,24 +49,23 @@ handleShelf = (event,book) => {
             .then(() => {
               // Removed to performance of state
               //this.getBooks()
-             this.showMessage(true)
+             this.handleMessage(true)
             })
             .catch(err => { 
-                            this.showMessage(false)
+                            this.handleMessage(false)
                             this.setState({ books: currentState }) 
                           })
 }
 
-showMessage(success){
-  if(success){
-    this.setState({ color: 'success', visible:true, msg:'Success! Book Added' })
-    setTimeout(() => { this.setState({ color: '', visible:false, msg:'' }) }, 2000)
-  }else{
-    this.setState({ color: 'danger', visible:true, msg:'Fail! Book not Added' })
-    setTimeout(() => { this.setState({ color: '', visible:false, msg:'' }) }, 2000)
+  handleMessage(success){
+    if(success){
+      this.setState({ color: 'success', visible:true, msg:'Success! Book Added' })
+      setTimeout(() => { this.setState({ color: '', visible:false, msg:'' }) }, 2000)
+    }else{
+      this.setState({ color: 'danger', visible:true, msg:'Fail! Book not Added' })
+      setTimeout(() => { this.setState({ color: '', visible:false, msg:'' }) }, 2000)
+    }
   }
-}
-
 
   render() {
     return (

@@ -10,17 +10,39 @@ export default class SearchBooks extends Component {
     results:[]
   }
 
-  handleSearch = (searchQuery) => {
-    this.setState({ query:searchQuery })
-    if (searchQuery.length === 0) {
-      this.setState({ results: [] })
-    } else {
-      search(searchQuery).then(searchResponse => {
-        const items = searchResponse.error ? [] : searchResponse
-        this.setState({ results: items })
+  handleSearch =  (query) => {
+    if (query) {
+      let queryResults = []
+
+      search(query).then(results => {
+        if (results && results.length) {
+          queryResults = results.map(result => {
+            result.shelf = this.addShelf(result)
+            return result
+          })
+          this.setState({
+            results: queryResults
+          })
+        } else {
+          this.setState({
+            results: []
+          })
+        }
       })
+    } else {
+      this.setState({
+        results: []
+      })
+    }
+    this.setState({
+      query: query
+    })
 }
-  }
+
+addShelf(result) {
+  let hasShelf = this.props.books.filter(book => book.id === result.id)
+  return hasShelf.length ? hasShelf[0].shelf : "none"
+}
 
   render() {
     const { handleShelf, books } = this.props
@@ -52,7 +74,7 @@ export default class SearchBooks extends Component {
               </div>
             </div>
             <div className="search-books-results">
-            { resultBooks.length > 0 ? (
+            { resultBooks.length > 0  && (query) ? (
               <Books
               onHandleChange={handleShelf}
               books={resultBooks}
